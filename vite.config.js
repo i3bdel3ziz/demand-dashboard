@@ -1,8 +1,11 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// Replace 'demand-dashboard' with your actual GitHub repository name
+// ⚠️  IMPORTANT: Change this to your EXACT GitHub repository name
+// Example: repo URL is https://github.com/john/my-dashboard → set 'my-dashboard'
+const REPO_NAME = 'demand-dashboard'
+
 export default defineConfig({
   plugins: [react()],
-  base: '/demand-dashboard/',
+  base: `/${REPO_NAME}/`,
 })
