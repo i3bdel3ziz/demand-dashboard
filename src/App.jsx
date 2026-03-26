@@ -61,6 +61,25 @@ const JIRA_DEL_UAT = {
   Others:     { Q1: { "Delivered to RFS/Live": 6,  "Missed/In Progress": 4  }, Q2: { "Delivered to RFS/Live": 6,   "Missed/In Progress": 4  }, Q3: { "Delivered to RFS/Live": 7,   "Missed/In Progress": 4  }, Q4: { "Delivered to RFS/Live": 7,   "Missed/In Progress": 5  } },
 };
 
+/* Delivery % Live — DRFs confirmed live in production */
+const JIRA_DEL_LIVE = {
+  All:        { Q1: { "Delivered to Live": 48, "Missed/In Progress": 58 }, Q2: { "Delivered to Live": 60,  "Missed/In Progress": 65 }, Q3: { "Delivered to Live": 67,  "Missed/In Progress": 66 }, Q4: { "Delivered to Live": 54,  "Missed/In Progress": 72 } },
+  Consumer:   { Q1: { "Delivered to Live": 18, "Missed/In Progress": 22 }, Q2: { "Delivered to Live": 23,  "Missed/In Progress": 27 }, Q3: { "Delivered to Live": 26,  "Missed/In Progress": 27 }, Q4: { "Delivered to Live": 20,  "Missed/In Progress": 28 } },
+  Business:   { Q1: { "Delivered to Live": 14, "Missed/In Progress": 26 }, Q2: { "Delivered to Live": 18,  "Missed/In Progress": 27 }, Q3: { "Delivered to Live": 20,  "Missed/In Progress": 27 }, Q4: { "Delivered to Live": 16,  "Missed/In Progress": 29 } },
+  Finance:    { Q1: { "Delivered to Live": 6,  "Missed/In Progress": 11 }, Q2: { "Delivered to Live": 8,   "Missed/In Progress": 12 }, Q3: { "Delivered to Live": 9,   "Missed/In Progress": 12 }, Q4: { "Delivered to Live": 7,   "Missed/In Progress": 14 } },
+  Technology: { Q1: { "Delivered to Live": 4,  "Missed/In Progress": 7  }, Q2: { "Delivered to Live": 5,   "Missed/In Progress": 8  }, Q3: { "Delivered to Live": 6,   "Missed/In Progress": 8  }, Q4: { "Delivered to Live": 5,   "Missed/In Progress": 9  } },
+  Others:     { Q1: { "Delivered to Live": 6,  "Missed/In Progress": 4  }, Q2: { "Delivered to Live": 6,   "Missed/In Progress": 5  }, Q3: { "Delivered to Live": 6,   "Missed/In Progress": 5  }, Q4: { "Delivered to Live": 6,   "Missed/In Progress": 6  } },
+};
+
+/* BU DRFs Touching One or Multiple Vendors */
+const JIRA_VENDOR_OVERLAP = {
+  Consumer:   { Q1: { "Single Vendor": 18, "Two Vendors": 10, "All Three": 6  }, Q2: { "Single Vendor": 21, "Two Vendors": 13, "All Three": 8  }, Q3: { "Single Vendor": 24, "Two Vendors": 14, "All Three": 9  }, Q4: { "Single Vendor": 20, "Two Vendors": 12, "All Three": 7  } },
+  Business:   { Q1: { "Single Vendor": 12, "Two Vendors": 11, "All Three": 7  }, Q2: { "Single Vendor": 15, "Two Vendors": 12, "All Three": 8  }, Q3: { "Single Vendor": 17, "Two Vendors": 14, "All Three": 9  }, Q4: { "Single Vendor": 14, "Two Vendors": 13, "All Three": 8  } },
+  Finance:    { Q1: { "Single Vendor": 7,  "Two Vendors": 4,  "All Three": 3  }, Q2: { "Single Vendor": 9,  "Two Vendors": 5,  "All Three": 3  }, Q3: { "Single Vendor": 10, "Two Vendors": 5,  "All Three": 4  }, Q4: { "Single Vendor": 8,  "Two Vendors": 5,  "All Three": 3  } },
+  Technology: { Q1: { "Single Vendor": 5,  "Two Vendors": 4,  "All Three": 2  }, Q2: { "Single Vendor": 6,  "Two Vendors": 4,  "All Three": 3  }, Q3: { "Single Vendor": 7,  "Two Vendors": 4,  "All Three": 3  }, Q4: { "Single Vendor": 6,  "Two Vendors": 5,  "All Three": 2  } },
+  Others:     { Q1: { "Single Vendor": 5,  "Two Vendors": 3,  "All Three": 1  }, Q2: { "Single Vendor": 5,  "Two Vendors": 3,  "All Three": 1  }, Q3: { "Single Vendor": 6,  "Two Vendors": 3,  "All Three": 2  }, Q4: { "Single Vendor": 5,  "Two Vendors": 3,  "All Three": 1  } },
+};
+
 const JIRA_VENDOR = {
   All:        { Q1: { TCS: 38, TechM: 29, "Ooredoo Team": 22 }, Q2: { TCS: 44, TechM: 33, "Ooredoo Team": 26 }, Q3: { TCS: 51, TechM: 38, "Ooredoo Team": 31 }, Q4: { TCS: 46, TechM: 35, "Ooredoo Team": 28 } },
   Consumer:   { Q1: { TCS: 16, TechM: 10, "Ooredoo Team": 8  }, Q2: { TCS: 19, TechM: 13, "Ooredoo Team": 10 }, Q3: { TCS: 22, TechM: 15, "Ooredoo Team": 11 }, Q4: { TCS: 18, TechM: 12, "Ooredoo Team": 9  } },
@@ -434,7 +453,7 @@ const BUProgressTable = ({ title, subtitle, jiraData, completedKey, inProgKey, c
         </div>
         <div style={{ textAlign: "right" }}>
           <span style={{ fontSize: isMobile ? 13 : 14, fontWeight: 800, color: "#111827" }}>{grandTotal}</span>
-          {!isMobile && <div style={{ fontSize: 9, color: "#9CA3AF" }}>total DRFs</div>}
+          {!isMobile && <div style={{ fontSize: 9, color: "#9CA3AF" }}>Total Impacted Systems</div>}
         </div>
       </div>
     </div>
@@ -551,6 +570,7 @@ export default function Dashboard() {
   const buDevData     = activeDRF ? makeDrfBuData("Delivered to SIT/UAT/EUT", "Missed/In Progress",       activeDRF.dDev     === "Delivered to SIT/UAT/EUT")  : JIRA_DEL_DEV;
   const buSitData     = activeDRF ? makeDrfBuData("Delivered to UAT",         "Missed/In Progress",       activeDRF.dSIT     === "Delivered to UAT")          : JIRA_DELIVERY;
   const buUatData     = activeDRF ? makeDrfBuData("Delivered to RFS/Live",    "Missed/In Progress",       activeDRF.dUAT     === "Delivered to RFS/Live")     : JIRA_DEL_UAT;
+  const buLiveData    = activeDRF ? makeDrfBuData("Delivered to Live",         "Missed/In Progress",       activeDRF.dUAT     === "Delivered to RFS/Live")     : JIRA_DEL_LIVE;
 
   /* Layout tokens */
   const px         = isMobile ? "12px" : isTablet ? "20px" : "28px";
@@ -570,9 +590,9 @@ export default function Dashboard() {
             <div style={{ fontSize: 9, fontWeight: 600, letterSpacing: "0.12em", color: "#9CA3AF", textTransform: "uppercase" }}>Realtime · JIRA</div>
             <div style={{ fontSize: isMobile ? 15 : 17, fontWeight: 700, color: "#111827", letterSpacing: "-0.02em" }}>Demand Dashboard</div>
           </div>
-          <div style={{ display: "flex", gap: 6, alignItems: "center", flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: 6, alignItems: "center", flexWrap: "wrap", justifyContent: isMobile ? "flex-start" : "flex-end", width: isMobile ? "100%" : "auto" }}>
             {/* Search box */}
-            <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+            <div style={{ position: "relative", display: "flex", alignItems: "center", flex: isMobile ? 1 : "none" }}>
               <span style={{ position: "absolute", left: 9, fontSize: 13, color: searchError ? "#EF4444" : activeDRF ? "#16A34A" : "#9CA3AF", pointerEvents: "none" }}>🔍</span>
               <input
                 type="text"
@@ -584,7 +604,7 @@ export default function Dashboard() {
                   fontSize: isMobile ? 11 : 12, height: 32, paddingLeft: 28, paddingRight: activeDRF ? 28 : 10,
                   border: `1.5px solid ${searchError ? "#FCA5A5" : activeDRF ? "#86EFAC" : "#E5E7EB"}`,
                   borderRadius: 8, background: searchError ? "#FEF2F2" : activeDRF ? "#F0FDF4" : "#F9FAFB",
-                  color: "#374151", outline: "none", width: isMobile ? 200 : 260, fontFamily: "'DM Sans', sans-serif",
+                  color: "#374151", outline: "none", width: isMobile ? "100%" : 260, fontFamily: "'DM Sans', sans-serif",
                   transition: "border-color 0.2s, background 0.2s"
                 }}
               />
@@ -633,14 +653,13 @@ export default function Dashboard() {
 
       {/* ── DONUT CARDS GRID ── */}
       {/* Row 1: 4 cards | Row 2: 3 cards (desktop), 2-col wrap on tablet/mobile */}
-      <div style={{ padding: `${isMobile ? "14px" : "22px"} ${px} 0`, display: "grid", gridTemplateColumns: `repeat(${isMobile ? 2 : isTablet ? 2 : 4}, 1fr)`, gap: isMobile ? 10 : 14 }}>
+      <div style={{ padding: `${isMobile ? "14px" : "22px"} ${px} 0`, display: "grid", gridTemplateColumns: `repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`, gap: isMobile ? 10 : 14 }}>
         <DonutCard title="Value of Request"       subtitle="Distribution of DRFs by strategic value category"                     chartData={valueData}     total={totalValue}     animKey={`val-${animKey}`}  tooltipContent={<ValueTooltip />}     icons={VALUE_ICONS}      showLegend={true}  bp={bp} />
         <DonutCard title="Delivery % Demand"      subtitle="DRFs progressed to Solution Design stage"                            chartData={delDemandData}  total={totalDelDemand} animKey={`dmd-${animKey}`}  tooltipContent={<DelDemandTooltip />} icons={DEL_DEMAND_ICONS} showLegend={false} bp={bp} />
         <DonutCard title="Delivery % SD"          subtitle="SD completion status within the same month"                          chartData={sdData}        total={totalSD}        animKey={`sd-${animKey}`}   tooltipContent={<SDTooltip />}        icons={SD_ICONS}         showLegend={false} bp={bp} />
         <DonutCard title="% DRF Rejected"         subtitle="SD Acceptance rate of submitted demand requests within the same month" chartData={rejectedData}  total={totalRej}       animKey={`rej-${animKey}`}  tooltipContent={<RejectedTooltip />}  icons={REJECTED_ICONS}   showLegend={false} bp={bp} />
         <DonutCard title="Delivery % Development" subtitle="DRFs delivered into SIT, UAT or EUT testing phases"                  chartData={delDevData}    total={totalDelDev}    animKey={`dev-${animKey}`}  tooltipContent={<DelDevTooltip />}    icons={DEL_DEV_ICONS}    showLegend={false} bp={bp} />
         <DonutCard title="Delivery % to SIT"      subtitle="Tracks DRFs delivered to UAT vs. still in progress"                  chartData={delData}       total={totalDel}       animKey={`del-${animKey}`}  tooltipContent={<DeliveryTooltip />}  icons={DELIVERY_ICONS}   showLegend={false} bp={bp} />
-        <DonutCard title="Delivery % UAT"         subtitle="DRFs signed off and delivered to RFS or Live"                        chartData={delUATData}    total={totalDelUAT}    animKey={`uat-${animKey}`}  tooltipContent={<DelUATTooltip />}    icons={DEL_UAT_ICONS}    showLegend={false} bp={bp} />
       </div>
 
       {/* ── BU PROGRESS TABLES GRID (items 8–12) ── */}
@@ -705,6 +724,121 @@ export default function Dashboard() {
             activeQuarters={activeQuarters}
             isMobile={isMobile}
           />
+          <BUProgressTable
+            title="Delivery % Live by Business Unit"
+            subtitle="DRFs confirmed live in production, per BU"
+            jiraData={buLiveData}
+            completedKey="Delivered to Live"
+            inProgKey="Missed/In Progress"
+            completedLabel="Live"
+            inProgLabel="Missed/WIP"
+            activeQuarters={activeQuarters}
+            isMobile={isMobile}
+          />
+        </div>
+      </div>
+
+      {/* ── VENDOR IMPACT DISTRIBUTION ── */}
+      <div style={{ padding: `${isMobile ? "12px" : "20px"} ${px} 0` }}>
+        <div style={{ background: "#fff", borderRadius: 14, padding: cardPad, boxShadow: "0 1px 4px rgba(0,0,0,0.05)" }}>
+
+          {/* Header */}
+          <div style={{ marginBottom: isMobile ? 16 : 22 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: "#111827" }}>Vendor Management Distribution</div>
+            <div style={{ fontSize: 10, color: "#9CA3AF", marginTop: 3 }}>% of impacted systems under IT MS vs Non-IT MS</div>
+          </div>
+
+          {(() => {
+            const VENDORS = ["TCS", "TechM", "Ooredoo Team"];
+            const vendorTotals = VENDORS.map(v => ({
+              name: v,
+              value: BU_STACK_KEYS.reduce((s, b) => s + activeQuarters.reduce((ss, q) => ss + JIRA_VENDOR[b][q][v], 0), 0),
+              color: VENDOR_COLORS[v],
+            }));
+            const grandTotal = vendorTotals.reduce((s, v) => s + v.value, 0);
+            const vendorData = vendorTotals.map(v => ({ ...v, pct: grandTotal > 0 ? +((v.value / grandTotal) * 100).toFixed(1) : 0 }));
+
+            const donutOuter = isMobile ? 90 : isTablet ? 110 : 130;
+            const donutInner = isMobile ? 52 : isTablet ? 64 : 76;
+            const chartSize  = donutOuter * 2 + 20;
+
+            const VENDOR_ICONS = { TCS: "🏢", TechM: "🔷", "Ooredoo Team": "🟠" };
+
+            return (
+              <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "stretch" : "center", gap: isMobile ? 20 : 28 }}>
+
+                {/* Donut — centered on mobile, fixed width on larger screens */}
+                <div style={{ display: "flex", justifyContent: "center", flexShrink: 0 }}>
+                  <div style={{ position: "relative", width: chartSize, height: chartSize }}>
+                    <PieChart width={chartSize} height={chartSize}>
+                      <Pie
+                        key={`vid-${animKey}`}
+                        data={vendorData}
+                        cx={chartSize / 2 - 1}
+                        cy={chartSize / 2 - 1}
+                        innerRadius={donutInner}
+                        outerRadius={donutOuter}
+                        dataKey="value"
+                        startAngle={90}
+                        endAngle={-270}
+                        paddingAngle={2}
+                        isAnimationActive={true}
+                        labelLine={false}
+                        label={({ cx, cy, midAngle, innerRadius, outerRadius, pct }) => {
+                          if (pct < 5) return null;
+                          const r = innerRadius + (outerRadius - innerRadius) * 0.55;
+                          const x = cx + r * Math.cos(-midAngle * RADIAN);
+                          const y = cy + r * Math.sin(-midAngle * RADIAN);
+                          return (
+                            <text x={x} y={y} textAnchor="middle" dominantBaseline="central"
+                              fontSize={isMobile ? 11 : 13} fontWeight={800} fill="#fff">
+                              {pct}%
+                            </text>
+                          );
+                        }}
+                      >
+                        {vendorData.map((entry, i) => (
+                          <Cell key={i} fill={entry.color} stroke="none" />
+                        ))}
+                      </Pie>
+                      <Tooltip
+                        formatter={(val, name) => [`${val} systems`, name]}
+                        contentStyle={{ fontSize: 11, borderRadius: 8, border: "1px solid #E5E7EB", fontFamily: "inherit" }}
+                      />
+                    </PieChart>
+                    {/* Centre label */}
+                    <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", textAlign: "center", pointerEvents: "none", width: donutInner * 1.6 }}>
+                      <div style={{ fontSize: isMobile ? 18 : 24, fontWeight: 800, color: "#111827", lineHeight: 1 }}>{grandTotal}</div>
+                      <div style={{ fontSize: 8, color: "#9CA3AF", fontWeight: 500, marginTop: 3, lineHeight: 1.3 }}>Total Systems</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Legend bars — full width, flex column */}
+                <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: isMobile ? 14 : 16 }}>
+                  {vendorData.map(v => (
+                    <div key={v.name}>
+                      {/* Name + count row */}
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
+                          <div style={{ width: 10, height: 10, borderRadius: "50%", background: v.color, flexShrink: 0 }} />
+                          <span style={{ fontSize: isMobile ? 11 : 12, fontWeight: 600, color: "#374151" }}>{VENDOR_ICONS[v.name]} {v.name}</span>
+                        </div>
+                        <div style={{ display: "flex", alignItems: "baseline", gap: 6 }}>
+                          <span style={{ fontSize: isMobile ? 14 : 16, fontWeight: 800, color: v.color, lineHeight: 1 }}>{v.value}</span>
+                          <span style={{ fontSize: 10, color: "#9CA3AF", fontWeight: 500 }}>{v.pct}%</span>
+                        </div>
+                      </div>
+                      {/* Bar */}
+                      <div style={{ height: isMobile ? 7 : 8, background: "#F3F4F6", borderRadius: 99, overflow: "hidden" }}>
+                        <div style={{ height: "100%", width: `${v.pct}%`, background: v.color, borderRadius: 99, transition: "width 0.5s ease" }} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })()}
         </div>
       </div>
 
@@ -868,7 +1002,7 @@ export default function Dashboard() {
                 </div>
                 <div style={{ textAlign: "right" }}>
                   <span style={{ fontSize: isMobile ? 13 : 14, fontWeight: 800, color: "#111827" }}>{grandTotal}</span>
-                  {!isMobile && <div style={{ fontSize: 9, color: "#9CA3AF" }}>total DRFs</div>}
+                  {!isMobile && <div style={{ fontSize: 9, color: "#9CA3AF" }}>Total Impacted Systems</div>}
                 </div>
               </div>
             );
@@ -916,7 +1050,7 @@ export default function Dashboard() {
                 {/* ── KPI SUMMARY CARDS ── */}
                 <div style={{ marginBottom: isMobile ? 20 : 28 }}>
                   <div style={{ fontSize: 11, fontWeight: 700, color: "#374151", marginBottom: 12 }}>Stage Summary</div>
-                  <div style={{ display: "grid", gridTemplateColumns: `repeat(${isMobile ? 2 : 7}, 1fr)`, gap: isMobile ? 8 : 10 }}>
+                  <div style={{ display: "grid", gridTemplateColumns: `repeat(${isMobile ? 2 : isTablet ? 4 : 7}, 1fr)`, gap: isMobile ? 8 : 10 }}>
                     {stageData.map((s) => (
                       <div key={s.stage} style={{ background: "#F9FAFB", borderRadius: 10, padding: isMobile ? "10px 8px" : "12px 14px", borderTop: `3px solid ${s.color}`, display: "flex", flexDirection: "column", gap: 4 }}>
                         <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
@@ -936,43 +1070,50 @@ export default function Dashboard() {
                 <div style={{ borderTop: "1px solid #F3F4F6", paddingTop: isMobile ? 16 : 20 }}>
                   <div style={{ fontSize: 11, fontWeight: 700, color: "#374151", marginBottom: 12 }}>Aging by Business Unit</div>
 
-                  {/* Table header — each stage has its own background color pill */}
-                  <div style={{ display: "grid", gridTemplateColumns: `${isMobile ? "72px" : "100px"} repeat(7, 1fr)`, gap: 6, marginBottom: 6, paddingBottom: 10, borderBottom: "1px solid #F3F4F6" }}>
-                    <div style={{ fontSize: 9, fontWeight: 600, color: "#9CA3AF", textTransform: "uppercase", display: "flex", alignItems: "center" }}>BU</div>
-                    {STAGES.map((stage, i) => (
-                      <div key={stage} style={{ textAlign: "center" }}>
-                        <span style={{ display: "inline-block", fontSize: isMobile ? 8 : 9, fontWeight: 700, color: "#fff", background: STAGE_COLORS[i], borderRadius: 99, padding: isMobile ? "3px 5px" : "3px 8px", whiteSpace: "nowrap", letterSpacing: "0.03em" }}>
-                          {stage}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
+                  {/* Scrollable wrapper on mobile */}
+                  <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+                    <div style={{ minWidth: 520 }}>
 
-                  {/* BU rows */}
-                  {buBreakdown.map((row, rowIdx) => (
-                    <div key={row.bu} style={{ display: "grid", gridTemplateColumns: `${isMobile ? "72px" : "100px"} repeat(7, 1fr)`, gap: 6, padding: "9px 0", borderBottom: rowIdx < buBreakdown.length - 1 ? "1px solid #F9FAFB" : "none", alignItems: "center" }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
-                        <div style={{ width: 7, height: 7, borderRadius: "50%", background: BU_COLORS[row.bu], flexShrink: 0 }} />
-                        <span style={{ fontSize: isMobile ? 10 : 11, fontWeight: 600, color: "#374151" }}>{row.bu}</span>
+                      {/* Table header — each stage has its own background color pill */}
+                      <div style={{ display: "grid", gridTemplateColumns: "90px repeat(7, 1fr)", gap: 6, marginBottom: 6, paddingBottom: 10, borderBottom: "1px solid #F3F4F6" }}>
+                        <div style={{ fontSize: 9, fontWeight: 600, color: "#9CA3AF", textTransform: "uppercase", display: "flex", alignItems: "center" }}>BU</div>
+                        {STAGES.map((stage, i) => (
+                          <div key={stage} style={{ textAlign: "center" }}>
+                            <span style={{ display: "inline-block", fontSize: 9, fontWeight: 700, color: "#fff", background: STAGE_COLORS[i], borderRadius: 99, padding: "3px 7px", whiteSpace: "nowrap", letterSpacing: "0.03em" }}>
+                              {stage}
+                            </span>
+                          </div>
+                        ))}
                       </div>
-                      {row.stages.map((cell) => (
-                        <div key={cell.stage} style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
-                          <div style={{ fontSize: isMobile ? 12 : 14, fontWeight: 800, color: cell.color, lineHeight: 1 }}>{cell.count}</div>
-                          <div style={{ fontSize: 9, fontWeight: 600, color: dayColor(cell.avgDays), background: dayColor(cell.avgDays) + "18", borderRadius: 99, padding: "1px 5px", whiteSpace: "nowrap" }}>~{cell.avgDays}d</div>
+
+                      {/* BU rows */}
+                      {buBreakdown.map((row, rowIdx) => (
+                        <div key={row.bu} style={{ display: "grid", gridTemplateColumns: "90px repeat(7, 1fr)", gap: 6, padding: "9px 0", borderBottom: rowIdx < buBreakdown.length - 1 ? "1px solid #F9FAFB" : "none", alignItems: "center" }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
+                            <div style={{ width: 7, height: 7, borderRadius: "50%", background: BU_COLORS[row.bu], flexShrink: 0 }} />
+                            <span style={{ fontSize: 11, fontWeight: 600, color: "#374151", whiteSpace: "nowrap" }}>{row.bu}</span>
+                          </div>
+                          {row.stages.map((cell) => (
+                            <div key={cell.stage} style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
+                              <div style={{ fontSize: 13, fontWeight: 800, color: cell.color, lineHeight: 1 }}>{cell.count}</div>
+                              <div style={{ fontSize: 9, fontWeight: 600, color: dayColor(cell.avgDays), background: dayColor(cell.avgDays) + "18", borderRadius: 99, padding: "1px 5px", whiteSpace: "nowrap" }}>~{cell.avgDays}d</div>
+                            </div>
+                          ))}
                         </div>
                       ))}
-                    </div>
-                  ))}
 
-                  {/* All BUs grand total row */}
-                  <div style={{ display: "grid", gridTemplateColumns: `${isMobile ? "72px" : "100px"} repeat(7, 1fr)`, gap: 6, marginTop: 10, paddingTop: 10, borderTop: "1px solid #F3F4F6", alignItems: "center" }}>
-                    <div style={{ fontSize: isMobile ? 10 : 11, fontWeight: 700, color: "#111827" }}>All BUs</div>
-                    {stageData.map((s) => (
-                      <div key={s.stage} style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
-                        <div style={{ fontSize: isMobile ? 13 : 15, fontWeight: 800, color: s.color, lineHeight: 1 }}>{s.count}</div>
-                        <div style={{ fontSize: 9, fontWeight: 600, color: dayColor(s.avgDays), background: dayColor(s.avgDays) + "18", borderRadius: 99, padding: "1px 5px", whiteSpace: "nowrap" }}>~{s.avgDays}d</div>
+                      {/* All BUs grand total row */}
+                      <div style={{ display: "grid", gridTemplateColumns: "90px repeat(7, 1fr)", gap: 6, marginTop: 10, paddingTop: 10, borderTop: "1px solid #F3F4F6", alignItems: "center" }}>
+                        <div style={{ fontSize: 11, fontWeight: 700, color: "#111827" }}>All BUs</div>
+                        {stageData.map((s) => (
+                          <div key={s.stage} style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
+                            <div style={{ fontSize: 14, fontWeight: 800, color: s.color, lineHeight: 1 }}>{s.count}</div>
+                            <div style={{ fontSize: 9, fontWeight: 600, color: dayColor(s.avgDays), background: dayColor(s.avgDays) + "18", borderRadius: 99, padding: "1px 5px", whiteSpace: "nowrap" }}>~{s.avgDays}d</div>
+                          </div>
+                        ))}
                       </div>
-                    ))}
+
+                    </div>
                   </div>
 
                   {/* Legend */}
