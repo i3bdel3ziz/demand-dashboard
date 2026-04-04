@@ -1,4 +1,4 @@
-# Demand Dashboard
+# Demand RealTime Dashboard
 
 A CxO-level Demand Realtime Dashboard built with React + Recharts.
 
