@@ -110,6 +110,36 @@ const JIRA_DEL_LIVE = {
   Others:     { Q1: { "Delivered to Live": 6,  "In Progress": 4  }, Q2: { "Delivered to Live": 6,   "In Progress": 5  }, Q3: { "Delivered to Live": 6,   "In Progress": 5  }, Q4: { "Delivered to Live": 6,   "In Progress": 6  } },
 };
 
+/* DRFs returned from Development stage */
+const JIRA_DEV_RETURNED = {
+  All:        { Q1: { "Returned": 9,  "Returned to Demand": 5,  "Not Returned": 92  }, Q2: { "Returned": 10, "Returned to Demand": 6,  "Not Returned": 109 }, Q3: { "Returned": 11, "Returned to Demand": 7,  "Not Returned": 115 }, Q4: { "Returned": 9,  "Returned to Demand": 6,  "Not Returned": 111 } },
+  Consumer:   { Q1: { "Returned": 3,  "Returned to Demand": 2,  "Not Returned": 35  }, Q2: { "Returned": 4,  "Returned to Demand": 2,  "Not Returned": 43  }, Q3: { "Returned": 4,  "Returned to Demand": 3,  "Not Returned": 45  }, Q4: { "Returned": 4,  "Returned to Demand": 2,  "Not Returned": 42  } },
+  Business:   { Q1: { "Returned": 2,  "Returned to Demand": 2,  "Not Returned": 36  }, Q2: { "Returned": 3,  "Returned to Demand": 2,  "Not Returned": 40  }, Q3: { "Returned": 3,  "Returned to Demand": 2,  "Not Returned": 42  }, Q4: { "Returned": 2,  "Returned to Demand": 2,  "Not Returned": 41  } },
+  Finance:    { Q1: { "Returned": 1,  "Returned to Demand": 1,  "Not Returned": 13  }, Q2: { "Returned": 1,  "Returned to Demand": 1,  "Not Returned": 15  }, Q3: { "Returned": 2,  "Returned to Demand": 1,  "Not Returned": 16  }, Q4: { "Returned": 1,  "Returned to Demand": 1,  "Not Returned": 14  } },
+  Technology: { Q1: { "Returned": 1,  "Returned to Demand": 1,  "Not Returned": 10  }, Q2: { "Returned": 1,  "Returned to Demand": 1,  "Not Returned": 11  }, Q3: { "Returned": 1,  "Returned to Demand": 1,  "Not Returned": 12  }, Q4: { "Returned": 1,  "Returned to Demand": 1,  "Not Returned": 11  } },
+  Others:     { Q1: { "Returned": 1,  "Returned to Demand": 0,  "Not Returned": 8   }, Q2: { "Returned": 1,  "Returned to Demand": 0,  "Not Returned": 8   }, Q3: { "Returned": 1,  "Returned to Demand": 0,  "Not Returned": 8   }, Q4: { "Returned": 1,  "Returned to Demand": 0,  "Not Returned": 9   } },
+};
+
+/* DRFs returned from SIT stage */
+const JIRA_SIT_RETURNED = {
+  All:        { Q1: { "Returned": 6,  "Returned to SD": 3,  "Returned to Demand": 2,  "Not Returned": 95  }, Q2: { "Returned": 7,  "Returned to SD": 4,  "Returned to Demand": 2,  "Not Returned": 112 }, Q3: { "Returned": 8,  "Returned to SD": 4,  "Returned to Demand": 2,  "Not Returned": 119 }, Q4: { "Returned": 6,  "Returned to SD": 4,  "Returned to Demand": 2,  "Not Returned": 114 } },
+  Consumer:   { Q1: { "Returned": 2,  "Returned to SD": 1,  "Returned to Demand": 1,  "Not Returned": 36  }, Q2: { "Returned": 3,  "Returned to SD": 1,  "Returned to Demand": 1,  "Not Returned": 45  }, Q3: { "Returned": 3,  "Returned to SD": 1,  "Returned to Demand": 1,  "Not Returned": 48  }, Q4: { "Returned": 2,  "Returned to SD": 1,  "Returned to Demand": 1,  "Not Returned": 44  } },
+  Business:   { Q1: { "Returned": 2,  "Returned to SD": 1,  "Returned to Demand": 0,  "Not Returned": 37  }, Q2: { "Returned": 2,  "Returned to SD": 1,  "Returned to Demand": 1,  "Not Returned": 41  }, Q3: { "Returned": 2,  "Returned to SD": 1,  "Returned to Demand": 1,  "Not Returned": 43  }, Q4: { "Returned": 2,  "Returned to SD": 1,  "Returned to Demand": 1,  "Not Returned": 41  } },
+  Finance:    { Q1: { "Returned": 1,  "Returned to SD": 1,  "Returned to Demand": 0,  "Not Returned": 13  }, Q2: { "Returned": 1,  "Returned to SD": 1,  "Returned to Demand": 0,  "Not Returned": 16  }, Q3: { "Returned": 1,  "Returned to SD": 1,  "Returned to Demand": 0,  "Not Returned": 17  }, Q4: { "Returned": 1,  "Returned to SD": 1,  "Returned to Demand": 0,  "Not Returned": 14  } },
+  Technology: { Q1: { "Returned": 1,  "Returned to SD": 0,  "Returned to Demand": 0,  "Not Returned": 11  }, Q2: { "Returned": 1,  "Returned to SD": 0,  "Returned to Demand": 0,  "Not Returned": 12  }, Q3: { "Returned": 1,  "Returned to SD": 1,  "Returned to Demand": 0,  "Not Returned": 12  }, Q4: { "Returned": 1,  "Returned to SD": 0,  "Returned to Demand": 0,  "Not Returned": 12  } },
+  Others:     { Q1: { "Returned": 0,  "Returned to SD": 0,  "Returned to Demand": 1,  "Not Returned": 8   }, Q2: { "Returned": 0,  "Returned to SD": 1,  "Returned to Demand": 0,  "Not Returned": 8   }, Q3: { "Returned": 1,  "Returned to SD": 0,  "Returned to Demand": 0,  "Not Returned": 9   }, Q4: { "Returned": 0,  "Returned to SD": 1,  "Returned to Demand": 0,  "Not Returned": 9   } },
+};
+
+/* DRFs returned from UAT stage */
+const JIRA_UAT_RETURNED = {
+  All:        { Q1: { "Returned": 4,  "Returned to Development": 2,  "Returned to SD": 1,  "Returned to Demand": 1,  "Not Returned": 98  }, Q2: { "Returned": 4,  "Returned to Development": 2,  "Returned to SD": 2,  "Returned to Demand": 1,  "Not Returned": 116 }, Q3: { "Returned": 5,  "Returned to Development": 2,  "Returned to SD": 2,  "Returned to Demand": 1,  "Not Returned": 123 }, Q4: { "Returned": 4,  "Returned to Development": 2,  "Returned to SD": 2,  "Returned to Demand": 1,  "Not Returned": 117 } },
+  Consumer:   { Q1: { "Returned": 2,  "Returned to Development": 1,  "Returned to SD": 0,  "Returned to Demand": 0,  "Not Returned": 37  }, Q2: { "Returned": 1,  "Returned to Development": 1,  "Returned to SD": 1,  "Returned to Demand": 0,  "Not Returned": 47  }, Q3: { "Returned": 2,  "Returned to Development": 1,  "Returned to SD": 1,  "Returned to Demand": 0,  "Not Returned": 49  }, Q4: { "Returned": 1,  "Returned to Development": 1,  "Returned to SD": 1,  "Returned to Demand": 0,  "Not Returned": 45  } },
+  Business:   { Q1: { "Returned": 1,  "Returned to Development": 1,  "Returned to SD": 0,  "Returned to Demand": 0,  "Not Returned": 38  }, Q2: { "Returned": 1,  "Returned to Development": 1,  "Returned to SD": 1,  "Returned to Demand": 0,  "Not Returned": 42  }, Q3: { "Returned": 2,  "Returned to Development": 1,  "Returned to SD": 0,  "Returned to Demand": 0,  "Not Returned": 44  }, Q4: { "Returned": 1,  "Returned to Development": 1,  "Returned to SD": 1,  "Returned to Demand": 0,  "Not Returned": 42  } },
+  Finance:    { Q1: { "Returned": 0,  "Returned to Development": 0,  "Returned to SD": 1,  "Returned to Demand": 0,  "Not Returned": 14  }, Q2: { "Returned": 1,  "Returned to Development": 0,  "Returned to SD": 0,  "Returned to Demand": 0,  "Not Returned": 17  }, Q3: { "Returned": 0,  "Returned to Development": 0,  "Returned to SD": 1,  "Returned to Demand": 0,  "Not Returned": 18  }, Q4: { "Returned": 1,  "Returned to Development": 0,  "Returned to SD": 0,  "Returned to Demand": 0,  "Not Returned": 15  } },
+  Technology: { Q1: { "Returned": 1,  "Returned to Development": 0,  "Returned to SD": 0,  "Returned to Demand": 0,  "Not Returned": 11  }, Q2: { "Returned": 1,  "Returned to Development": 0,  "Returned to SD": 0,  "Returned to Demand": 0,  "Not Returned": 12  }, Q3: { "Returned": 1,  "Returned to Development": 0,  "Returned to SD": 0,  "Returned to Demand": 0,  "Not Returned": 13  }, Q4: { "Returned": 1,  "Returned to Development": 0,  "Returned to SD": 0,  "Returned to Demand": 0,  "Not Returned": 12  } },
+  Others:     { Q1: { "Returned": 0,  "Returned to Development": 0,  "Returned to SD": 0,  "Returned to Demand": 1,  "Not Returned": 8   }, Q2: { "Returned": 0,  "Returned to Development": 0,  "Returned to SD": 0,  "Returned to Demand": 1,  "Not Returned": 8   }, Q3: { "Returned": 0,  "Returned to Development": 0,  "Returned to SD": 0,  "Returned to Demand": 1,  "Not Returned": 9   }, Q4: { "Returned": 0,  "Returned to Development": 0,  "Returned to SD": 0,  "Returned to Demand": 1,  "Not Returned": 9   } },
+};
+
 /* BU DRFs Touching One or Multiple Vendors */
 const JIRA_VENDOR_OVERLAP = {
   Consumer:   { Q1: { "Single Vendor": 18, "Two Vendors": 10, "All Three": 6  }, Q2: { "Single Vendor": 21, "Two Vendors": 13, "All Three": 8  }, Q3: { "Single Vendor": 24, "Two Vendors": 14, "All Three": 9  }, Q4: { "Single Vendor": 20, "Two Vendors": 12, "All Three": 7  } },
@@ -223,6 +253,8 @@ const DEL_DEV_COLORS    = { "Delivered to SIT/UAT/EUT": "#16A34A", "In Progress"
 const DEL_DEV_ICONS     = { "Delivered to SIT/UAT/EUT": "✅", "In Progress": "🔄" };
 const DEL_UAT_COLORS    = { "Delivered to RFS/Live": "#16A34A", "In Progress": "#EAB308" };
 const DEL_UAT_ICONS     = { "Delivered to RFS/Live": "✅", "In Progress": "🔄" };
+const RETURNED_COLORS   = { "Returned": "#EF4444", "Not Returned": "#16A34A" };
+const RETURNED_ICONS    = { "Returned": "↩️", "Not Returned": "✅" };
 const VENDOR_COLORS   = { TCS: "#6366F1", TechM: "#EC4899", "Ooredoo Team": "#0EA5E9" };
 const BU_COLORS       = { Consumer: "#2563EB", Business: "#10B981", Finance: "#F59E0B", Technology: "#EC4899", Others: "#8B5CF6" };
 const BU_STACK_KEYS   = ["Consumer", "Business", "Finance", "Technology", "Others"];
@@ -252,8 +284,8 @@ function useBreakpoint() {
 /* ══════════════════════════════════════════
    SLICE LABEL
 ══════════════════════════════════════════ */
-const SliceLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, pct }) => {
-  if (pct < 10) return null;
+const SliceLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, pct, minPct = 10 }) => {
+  if (pct < minPct) return null;
   const r = innerRadius + (outerRadius - innerRadius) * 0.5;
   const x = cx + r * Math.cos(-midAngle * RADIAN);
   const y = cy + r * Math.sin(-midAngle * RADIAN);
@@ -289,6 +321,7 @@ const RejectedTooltip   = makeTooltip(REJECTED_COLORS);
 const DelDemandTooltip  = makeTooltip(DEL_DEMAND_COLORS);
 const DelDevTooltip     = makeTooltip(DEL_DEV_COLORS);
 const DelUATTooltip     = makeTooltip(DEL_UAT_COLORS);
+const ReturnedTooltip   = makeTooltip(RETURNED_COLORS);
 
 /* ══════════════════════════════════════════
    SELECT STYLE
@@ -306,7 +339,7 @@ const makeSelStyle = (fs = 13) => ({
 /* ══════════════════════════════════════════
    DONUT CARD
 ══════════════════════════════════════════ */
-const DonutCard = ({ title, subtitle, chartData, total, animKey, tooltipContent, icons, showLegend = true, bp, statusData }) => {
+const DonutCard = ({ title, subtitle, chartData, total, animKey, tooltipContent, icons, showLegend = true, bp, statusData, extraStats, labelMinPct = 10 }) => {
   const { isMobile, isTablet } = bp;
   const size    = isMobile ? 150 : isTablet ? 170 : 190;
   const innerR  = isMobile ? 44  : isTablet ? 52  : 58;
@@ -329,7 +362,7 @@ const DonutCard = ({ title, subtitle, chartData, total, animKey, tooltipContent,
               <Pie data={chartData} cx="50%" cy="50%"
                 innerRadius={innerR} outerRadius={outerR}
                 paddingAngle={2} dataKey="value" labelLine={false}
-                label={(props) => <SliceLabel {...props} pct={parseFloat(chartData[props.index]?.pct)} />}
+                label={(props) => <SliceLabel {...props} pct={parseFloat(chartData[props.index]?.pct)} minPct={labelMinPct} />}
                 animationBegin={0} animationDuration={500} isAnimationActive={true}>
                 {chartData.map((e, i) => <Cell key={i} fill={e.color} strokeWidth={0} />)}
               </Pie>
@@ -343,16 +376,17 @@ const DonutCard = ({ title, subtitle, chartData, total, animKey, tooltipContent,
           </div>
         </div>
 
-        {/* Dot-only legend */}
+        {/* Dot-only legend + extra stats */}
         {!showLegend && (
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, flex: 1, minWidth: 0 }}>
             {chartData.map(item => (
               <div key={item.name} style={{ display: "flex", alignItems: "center", gap: 6 }}>
                 <div style={{ width: 9, height: 9, borderRadius: "50%", background: item.color, flexShrink: 0 }} />
                 <span style={{ fontSize: 11, color: "#6B7280", fontWeight: 500, whiteSpace: "nowrap" }}>{item.name}</span>
               </div>
             ))}
-          </div>
+
+        </div>
         )}
 
         {/* Full legend with bars + optional status mini-bars */}
@@ -369,22 +403,17 @@ const DonutCard = ({ title, subtitle, chartData, total, animKey, tooltipContent,
               return (
                 <div key={item.name} style={{ marginBottom: statusData ? 14 : 10 }}>
                   {/* Row 1: name + total */}
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 3 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: statusData ? 6 : 3 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
                       <span style={{ fontSize: 11 }}>{icons[item.name]}</span>
                       <span style={{ fontSize: 10, color: "#6B7280" }}>{item.name}</span>
                     </div>
                     <div>
                       <span style={{ fontSize: 12, fontWeight: 700, color: "#111827" }}>{item.value}</span>
-                      <span style={{ fontSize: 10, color: "#9CA3AF", marginLeft: 3 }}>({item.pct}%)</span>
                     </div>
                   </div>
-                  {/* Main share bar */}
-                  <div style={{ height: 4, background: "#F3F4F6", borderRadius: 99, overflow: "hidden", marginBottom: statusData ? 6 : 0 }}>
-                    <div style={{ height: "100%", width: `${item.pct}%`, background: item.color, borderRadius: 99, transition: "width 0.5s ease" }} />
-                  </div>
 
-                  {/* Mini Live / In Progress bar */}
+                  {/* Mini Live / In Progress bar only */}
                   {statusData && stTotal > 0 && (
                     <div>
                       {/* Labels row */}
@@ -403,6 +432,13 @@ const DonutCard = ({ title, subtitle, chartData, total, animKey, tooltipContent,
                         <div style={{ height: "100%", width: `${livePct}%`, background: "#16A34A", borderRadius: "99px 0 0 99px", transition: "width 0.5s ease" }} />
                         <div style={{ height: "100%", width: `${inPct}%`, background: "#F59E0B", borderRadius: "0 99px 99px 0", transition: "width 0.5s ease" }} />
                       </div>
+                    </div>
+                  )}
+
+                  {/* Fallback bar when no statusData */}
+                  {!statusData && (
+                    <div style={{ height: 4, background: "#F3F4F6", borderRadius: 99, overflow: "hidden" }}>
+                      <div style={{ height: "100%", width: `${item.pct}%`, background: item.color, borderRadius: 99, transition: "width 0.5s ease" }} />
                     </div>
                   )}
                 </div>
@@ -430,7 +466,7 @@ const DonutCard = ({ title, subtitle, chartData, total, animKey, tooltipContent,
 /* ══════════════════════════════════════════
    BU PROGRESS TABLE (reusable)
 ══════════════════════════════════════════ */
-const BUProgressTable = ({ title, subtitle, jiraData, completedKey, inProgKey, completedLabel, inProgLabel, activeQuarters, isMobile }) => {
+const BUProgressTable = ({ title, subtitle, jiraData, completedKey, inProgKey, completedLabel, inProgLabel, activeQuarters, isMobile, completedColor = "#16A34A", inProgColor = "#EAB308" }) => {
   const cols = isMobile ? "80px 1fr" : "130px 1fr 90px";
   const gap  = isMobile ? 8 : 12;
 
@@ -470,12 +506,12 @@ const BUProgressTable = ({ title, subtitle, jiraData, completedKey, inProgKey, c
             {/* Progress bar + counts */}
             <div>
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-                <span style={{ fontSize: 10, color: "#16A34A", fontWeight: 600 }}>{completedLabel} {pct}% <span style={{ fontSize: 9, fontWeight: 500, color: "#16A34A", opacity: 0.8 }}>({completed})</span></span>
-                <span style={{ fontSize: 10, color: "#EAB308", fontWeight: 600 }}>{inProgLabel} {100 - pct}% <span style={{ fontSize: 9, fontWeight: 500, color: "#EAB308", opacity: 0.8 }}>({inProg})</span></span>
+                <span style={{ fontSize: 10, color: completedColor, fontWeight: 600 }}>{completedLabel} {pct}% <span style={{ fontSize: 9, fontWeight: 500, color: "#16A34A", opacity: 0.8 }}>({completed})</span></span>
+                <span style={{ fontSize: 10, color: inProgColor, fontWeight: 600 }}>{inProgLabel} {100 - pct}% <span style={{ fontSize: 9, fontWeight: 500, color: "#EAB308", opacity: 0.8 }}>({inProg})</span></span>
               </div>
               <div style={{ height: 7, background: "#F3F4F6", borderRadius: 99, overflow: "hidden", position: "relative" }}>
-                <div style={{ position: "absolute", left: 0, top: 0, height: "100%", width: `${pct}%`, background: "#16A34A", borderRadius: 99, transition: "width 0.5s ease" }} />
-                <div style={{ position: "absolute", left: `${pct}%`, top: 0, height: "100%", width: `${100 - pct}%`, background: "#EAB308", borderRadius: 99, transition: "all 0.5s ease" }} />
+                <div style={{ position: "absolute", left: 0, top: 0, height: "100%", width: `${pct}%`, background: completedColor, borderRadius: 99, transition: "width 0.5s ease" }} />
+                <div style={{ position: "absolute", left: `${pct}%`, top: 0, height: "100%", width: `${100 - pct}%`, background: inProgColor, borderRadius: 99, transition: "all 0.5s ease" }} />
               </div>
             </div>
             {/* Total count — desktop only */}
@@ -494,12 +530,12 @@ const BUProgressTable = ({ title, subtitle, jiraData, completedKey, inProgKey, c
         <div style={{ fontSize: isMobile ? 11 : 12, fontWeight: 700, color: "#111827" }}>All BUs</div>
         <div>
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-            <span style={{ fontSize: 10, color: "#16A34A", fontWeight: 700 }}>{completedLabel} {grandPct}% <span style={{ fontSize: 9, fontWeight: 600, color: "#16A34A", opacity: 0.85 }}>({grandCompleted})</span></span>
-            <span style={{ fontSize: 10, color: "#EAB308", fontWeight: 700 }}>{inProgLabel} {100 - grandPct}% <span style={{ fontSize: 9, fontWeight: 600, color: "#EAB308", opacity: 0.85 }}>({grandInProg})</span></span>
+            <span style={{ fontSize: 10, color: completedColor, fontWeight: 700 }}>{completedLabel} {grandPct}% <span style={{ fontSize: 9, fontWeight: 600, color: "#16A34A", opacity: 0.85 }}>({grandCompleted})</span></span>
+            <span style={{ fontSize: 10, color: inProgColor, fontWeight: 700 }}>{inProgLabel} {100 - grandPct}% <span style={{ fontSize: 9, fontWeight: 600, color: "#EAB308", opacity: 0.85 }}>({grandInProg})</span></span>
           </div>
           <div style={{ height: 7, background: "#F3F4F6", borderRadius: 99, overflow: "hidden", position: "relative" }}>
-            <div style={{ position: "absolute", left: 0, top: 0, height: "100%", width: `${grandPct}%`, background: "#16A34A", borderRadius: 99 }} />
-            <div style={{ position: "absolute", left: `${grandPct}%`, top: 0, height: "100%", width: `${100 - grandPct}%`, background: "#EAB308", borderRadius: 99 }} />
+            <div style={{ position: "absolute", left: 0, top: 0, height: "100%", width: `${grandPct}%`, background: completedColor, borderRadius: 99 }} />
+            <div style={{ position: "absolute", left: `${grandPct}%`, top: 0, height: "100%", width: `${100 - grandPct}%`, background: inProgColor, borderRadius: 99 }} />
           </div>
         </div>
         {!isMobile && (
@@ -621,6 +657,52 @@ export default function Dashboard() {
   const totalDelUAT   = Object.values(rawDelUAT).reduce((s, v) => s + v, 0);
   const delUATData    = Object.entries(rawDelUAT).map(([n, v]) => ({ name: n, value: v, color: DEL_UAT_COLORS[n], pct: totalDelUAT > 0 ? ((v / totalDelUAT) * 100).toFixed(1) : "0.0" }));
 
+  // Returned-from stats for Delivery % Development and Delivery % to SIT cards
+  const devReturnedStats = activeDRF ? null : (() => {
+    const r = activeQuarters.reduce((s, q) => s + JIRA_DEV_RETURNED[activeBu][q]["Returned"], 0);
+    const t = activeQuarters.reduce((s, q) => s + JIRA_DEV_RETURNED[activeBu][q]["Returned"] + JIRA_DEV_RETURNED[activeBu][q]["Not Returned"], 0);
+    return [{ label: "Returned from Development", returned: r, total: t, color: "#EF4444" }];
+  })();
+
+  const sitReturnedStats = activeDRF ? null : (() => {
+    const rSIT = activeQuarters.reduce((s, q) => s + JIRA_SIT_RETURNED[activeBu][q]["Returned"], 0);
+    const tSIT = activeQuarters.reduce((s, q) => s + JIRA_SIT_RETURNED[activeBu][q]["Returned"] + JIRA_SIT_RETURNED[activeBu][q]["Not Returned"], 0);
+    const rUAT = activeQuarters.reduce((s, q) => s + JIRA_UAT_RETURNED[activeBu][q]["Returned"], 0);
+    const tUAT = activeQuarters.reduce((s, q) => s + JIRA_UAT_RETURNED[activeBu][q]["Returned"] + JIRA_UAT_RETURNED[activeBu][q]["Not Returned"], 0);
+    return [
+      { label: "Returned from SIT", returned: rSIT, total: tSIT, color: "#EF4444" },
+      { label: "Returned from UAT", returned: rUAT, total: tUAT, color: "#DC2626" },
+    ];
+  })();
+
+  // Returned donut chart data
+  const rawDevReturned  = sumAcross(JIRA_DEV_RETURNED, ["Not Returned", "Returned", "Returned to Demand"]);
+  const totalDevRet     = Object.values(rawDevReturned).reduce((s, v) => s + v, 0);
+  const devRetData      = Object.entries(rawDevReturned).map(([n, v]) => ({
+    name:  n === "Returned" ? "Returned to SD" : n === "Returned to Demand" ? "Returned to Demand" : "Accepted to Delivery",
+    value: v,
+    color: n === "Returned" ? "#EAB308" : n === "Returned to Demand" ? "#EF4444" : "#16A34A",
+    pct:   totalDevRet > 0 ? ((v / totalDevRet) * 100).toFixed(1) : "0.0"
+  }));
+
+  const rawSITReturned  = sumAcross(JIRA_SIT_RETURNED, ["Not Returned", "Returned", "Returned to SD", "Returned to Demand"]);
+  const totalSITRet     = Object.values(rawSITReturned).reduce((s, v) => s + v, 0);
+  const sitRetData      = Object.entries(rawSITReturned).map(([n, v]) => ({
+    name:  n === "Returned" ? "Returned to Development" : n === "Returned to SD" ? "Returned to SD" : n === "Returned to Demand" ? "Returned to Demand" : "Accepted to Delivery",
+    value: v,
+    color: n === "Returned" ? "#EAB308" : n === "Returned to SD" ? "#F97316" : n === "Returned to Demand" ? "#EF4444" : "#16A34A",
+    pct:   totalSITRet > 0 ? ((v / totalSITRet) * 100).toFixed(1) : "0.0"
+  }));
+
+  const rawUATReturned  = sumAcross(JIRA_UAT_RETURNED, ["Not Returned", "Returned", "Returned to Development", "Returned to SD", "Returned to Demand"]);
+  const totalUATRet     = Object.values(rawUATReturned).reduce((s, v) => s + v, 0);
+  const uatRetData      = Object.entries(rawUATReturned).map(([n, v]) => ({
+    name:  n === "Returned" ? "Returned to SIT" : n === "Returned to Development" ? "Returned to Development" : n === "Returned to SD" ? "Returned to SD" : n === "Returned to Demand" ? "Returned to Demand" : "Accepted UAT delivery",
+    value: v,
+    color: n === "Returned" ? "#EAB308" : n === "Returned to Development" ? "#F97316" : n === "Returned to SD" ? "#EF4444" : n === "Returned to Demand" ? "#DC2626" : "#16A34A",
+    pct:   totalUATRet > 0 ? ((v / totalUATRet) * 100).toFixed(1) : "0.0"
+  }));
+
   const vendorStackData = activeDRF
     ? [{ vendor: activeDRF.vendor, Consumer: 0, Business: 0, Finance: 0, Technology: 0, Others: 0, [activeDRF.bu]: 1 }]
     : ["TCS", "TechM", "Ooredoo Team"].map(vendor => {
@@ -722,9 +804,12 @@ export default function Dashboard() {
         <DonutCard title="Value of Request"       subtitle="Distribution of DRFs by strategic value category"                     chartData={valueData}     total={totalValue}     animKey={`val-${animKey}`}  tooltipContent={<ValueTooltip />}     icons={VALUE_ICONS}      showLegend={true}  bp={bp} statusData={valueStatusData} />
         <DonutCard title="Delivery % Demand"      subtitle="% of demand DRF's delivered to SD & beyond"                            chartData={delDemandData}  total={totalDelDemand} animKey={`dmd-${animKey}`}  tooltipContent={<DelDemandTooltip />} icons={DEL_DEMAND_ICONS} showLegend={false} bp={bp} />
         <DonutCard title="Delivery % SD"          subtitle="% of DRF's solution design completed & beyond"                          chartData={sdData}        total={totalSD}        animKey={`sd-${animKey}`}   tooltipContent={<SDTooltip />}        icons={SD_ICONS}         showLegend={false} bp={bp} />
-        <DonutCard title="% DRF Returned"         subtitle="% of DRF returned from SD to demand within SD month" chartData={rejectedData}  total={totalRej}       animKey={`rej-${animKey}`}  tooltipContent={<RejectedTooltip />}  icons={REJECTED_ICONS}   showLegend={false} bp={bp} />
+        <DonutCard title="% DRF Returned (SD)"         subtitle="% of DRF returned from SD to demand within SD month" chartData={rejectedData}  total={totalRej}       animKey={`rej-${animKey}`}  tooltipContent={<RejectedTooltip />}  icons={REJECTED_ICONS}   showLegend={false} bp={bp} />
         <DonutCard title="Delivery % Development" subtitle="% DRF's development delivered to SIT & beyond (Including EUT)"                  chartData={delDevData}    total={totalDelDev}    animKey={`dev-${animKey}`}  tooltipContent={<DelDevTooltip />}    icons={DEL_DEV_ICONS}    showLegend={false} bp={bp} />
+        <DonutCard title="% DRF Returned (Development)" labelMinPct={3} labelMinPct={4} subtitle="% of DRF returned from Development to Demand/SD within delivery monthly scope"      chartData={devRetData}    total={totalDevRet}    animKey={`dret-${animKey}`} tooltipContent={<ReturnedTooltip />}  icons={RETURNED_ICONS}   showLegend={false} bp={bp} />
         <DonutCard title="Delivery % to SIT"      subtitle="% DRF's delivered from SIT to UAT & beyond"                  chartData={delData}       total={totalDel}       animKey={`del-${animKey}`}  tooltipContent={<DeliveryTooltip />}  icons={DELIVERY_ICONS}   showLegend={false} bp={bp} />
+        <DonutCard title="% DRF Returned (SIT)" labelMinPct={3} labelMinPct={4}        subtitle="% of DRF returned from SIT to Demand/SD/Development within delivery monthly scope"              chartData={sitRetData}    total={totalSITRet}    animKey={`sret-${animKey}`} tooltipContent={<ReturnedTooltip />}  icons={RETURNED_ICONS}   showLegend={false} bp={bp} />
+        <DonutCard title="% DRF Returned (UAT)" labelMinPct={3} labelMinPct={4}        subtitle="% of DRF returned from UAT to Demand/SD/Development/SIT"              chartData={uatRetData}    total={totalUATRet}    animKey={`urat-${animKey}`} tooltipContent={<ReturnedTooltip />}  icons={RETURNED_ICONS}   showLegend={false} bp={bp} />
       </div>
 
       {/* ── BU PROGRESS TABLES GRID (items 8–12) ── */}
@@ -796,8 +881,10 @@ export default function Dashboard() {
             activeQuarters={activeQuarters}
             isMobile={isMobile}
           />
+
         </div>
       </div>
+
 
       {/* ── VENDOR IMPACT DISTRIBUTION ── */}
       <div style={{ padding: `${isMobile ? "12px" : "20px"} ${px} 0` }}>
