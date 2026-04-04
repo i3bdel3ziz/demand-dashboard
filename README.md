@@ -23,6 +23,7 @@ git init
 git add .
 git pull git@github.com:<YOUR_USERNAME>/<repo project>
 git commit -m "xxx"
+git remote set-url origin git@github.com:<YOUR_USERNAME>/demand-dashboard.git
 git push
 npm run deploy
 ```
