@@ -402,9 +402,10 @@ const DonutCard = ({ title, subtitle, chartData, total, animKey, tooltipContent,
 
               return (
                 <div key={item.name} style={{ marginBottom: statusData ? 14 : 10 }}>
-                  {/* Row 1: name + total */}
+                  {/* Row 1: colour dot + name + total */}
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: statusData ? 6 : 3 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
+                      <div style={{ width: 9, height: 9, borderRadius: "50%", background: item.color, flexShrink: 0 }} />
                       <span style={{ fontSize: 11 }}>{icons[item.name]}</span>
                       <span style={{ fontSize: 10, color: "#6B7280" }}>{item.name}</span>
                     </div>
