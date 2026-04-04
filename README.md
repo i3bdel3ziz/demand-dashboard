@@ -22,7 +22,7 @@ Open http://localhost:5173/demand-dashboard/ in your browser.
 git init
 git add .
 git pull git@github.com:<YOUR_USERNAME>/<repo project>
-git commit -m "v1.3.0 - label updates, ITMS rename, counts inline"
+git commit -m "xxx"
 git push
 npm run deploy
 ```
